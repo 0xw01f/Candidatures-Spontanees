@@ -12,7 +12,7 @@ console = Console()
 def send_email_with_attachments(recipient_email, subject, body, attachments):
     
     if not all([SENDER_EMAIL, recipient_email, subject, body, attachments]):
-        console.print(f"[bold red]Incomplete email data detected for {subject}. Skipping...[/bold red]")
+        console.print(f"⚠️ [bold red]Incomplete email data detected for {subject}. Skipping...[/bold red]")
         return
 
     msg = create_email_message(recipient_email, subject, body, attachments)
@@ -25,22 +25,22 @@ def send_email_with_attachments(recipient_email, subject, body, attachments):
                 server.login(SENDER_EMAIL, PASSWORD)
             except SMTPAuthenticationError as auth_error:
                 
-                console.print(f"[bold red]SMTP Authentication Error: Invalid credentials for {SENDER_EMAIL}. Please check your username and password.[/bold red]")
-                console.print(f"[bold yellow]Details: {auth_error}[/bold yellow]")
+                console.print(f"🚫 [bold red]SMTP Authentication Error: Invalid credentials for {SENDER_EMAIL}. Please check your username and password.[/bold red]")
+                console.print(f"🚫 [bold yellow]Details: {auth_error}[/bold yellow]")
                 exit(1) # Exit the function early, do not attempt to send the email
             except SMTPException as smtp_error:
                 
-                console.print(f"[bold red]SMTP Error occurred: {str(smtp_error)}[/bold red]")
+                console.print(f"🚫 [bold red]SMTP Error occurred: {str(smtp_error)}[/bold red]")
                 exit(1)  
 
             
             server.send_message(msg)
-            console.print(f"[green]Email sent successfully to {recipient_email}.[/green]")
+            console.print(f"✅ [green]Email sent successfully to {recipient_email}.[/green]")
 
     except SMTPException as e:
-        console.print(f"[bold red]Failed to send email to {recipient_email}: {str(e)}[/bold red]")
+        console.print(f"🛑 [bold red]Failed to send email to {recipient_email}: {str(e)}[/bold red]")
     except Exception as e:
-        console.print(f"[bold red]An unexpected error occurred while sending email: {str(e)}[/bold red]")
+        console.print(f"🛑 [bold red]An unexpected error occurred while sending email: {str(e)}[/bold red]")
 
 def create_email_message(recipient_email, subject, body, attachments):
     
@@ -73,6 +73,6 @@ def attach_additional_files(msg):
                 part = MIMEApplication(f.read(), Name=os.path.basename(file))
             part['Content-Disposition'] = f'attachment; filename="{os.path.basename(file)}"'
             msg.attach(part)
-            console.print(f"[blue]Attached additional file: {file}[/blue]")
+            console.print(f"✅ [blue]Attached additional file: {file}[/blue]")
         else:
-            console.print(f"[bold yellow]File {file} does not exist and will not be attached.[/bold yellow]")
+            console.print(f"⚠️ [bold yellow]File {file} does not exist and will not be attached.[/bold yellow]")

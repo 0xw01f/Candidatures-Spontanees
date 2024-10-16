@@ -18,7 +18,7 @@ def generate_documents(job_name, company, cover_letter_content):
     """Generate CV and cover letter documents."""
     folder_name = create_output_folder(job_name)
     
-    console.print(f"[bold cyan]Generating documents for {company}...[/bold cyan]")
+    console.print(f"⚙️ [bold cyan]Generating documents for {company}...[/bold cyan]")
     
     cv_output = generate_cv(folder_name, job_name, company)
     lm_output = generate_cover_letter(folder_name, job_name, company, cover_letter_content)
@@ -35,7 +35,7 @@ def create_output_folder(job_name):
 
 def load_recipients(csv_file):
     """Load recipient information from the CSV file."""
-    console.print(f"[bold yellow]Loading recipients from {csv_file}...[/bold yellow]")
+    console.print(f" ⚙️ [bold yellow]Loading recipients from {csv_file}...[/bold yellow]")
     
     with open(csv_file, newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=';')
@@ -52,7 +52,7 @@ def load_recipients(csv_file):
         ]
     
     if not recipients:
-        console.print("[bold red]Error: No recipients found in the CSV file. Exiting...[/bold red]")
+        console.print("🛑 [bold red]Error: No recipients found in the CSV file. Exiting...[/bold red]")
         sys.exit(1)  
     
     console.print(f"[green]Loaded {len(recipients)} recipients.[/green]")
@@ -64,7 +64,7 @@ def load_email_content(file_path):
         with open(file_path, 'r', encoding='utf-8') as f:
             return f.read()
     except FileNotFoundError:
-        console.print(f"[bold red]Error: The email content file '{file_path}' was not found. Please make sure the file exists in the correct directory.[/bold red]")
+        console.print(f"🛑 [bold red]Error: The email content file '{file_path}' was not found. Please make sure the file exists in the correct directory.[/bold red]")
         sys.exit(1) 
 
 
@@ -93,7 +93,7 @@ New version by @bl4ckarch
 
 console.print(banner, style="cyan")
 """Main function to handle document generation and email sending."""
-console.print("[bold magenta]Starting the application process...[/bold magenta]")
+console.print("[bold magenta] 🏁 Starting the application process...[/bold magenta]")
 recipients = load_recipients(CSV_FILE)
 email_template = load_email_content("email_content.txt")
 for recipient in recipients:
@@ -106,15 +106,15 @@ for recipient in recipients:
     
     email_body = format_email_content(email_template, recipient, job_name)
 
-    console.print(f"[blue]Sending email to {recipient['email']}...[/blue]")
+    console.print(f"⚙️ [blue]Sending email to {recipient['email']}...[/blue]")
     send_email_with_attachments(
         recipient["email"],
         f"Application for {job_name} position at {company if company else 'your company'}",
         email_body,
         documents
     )
-    console.print(f"[green]Email sent to {recipient['email']}.[/green]")
-console.print("[bold magenta]All emails have been sent![/bold magenta]")
+    console.print(f"✅ [green] Email sent to {recipient['email']}.[/green]")
+console.print("✅ [bold magenta]All emails have been sent![/bold magenta]")
 
 if __name__ == "__main__":
     main()
