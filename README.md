@@ -1,8 +1,11 @@
 
 ## Que fait ce script ?
 IL permet d'envoyer des candidatures spontanées à une liste de personnes. Ces candidatures sont personnalisées, et s'adressent directement à la personne qui reçoit l'email. 
+
 On récupère les infos (Prénom, No, Civilité, Mail, Entreprise, Poste) pour compléter un email d'accroche type.
+
 Ce script génère aussi des CV et des Lettres de Motivation pour chaque différent poste et différente personne que vous ciblez, et les attache à l'email de candidature.
+
 Il attache également des fichiers supplémentaires, comme le calendrier et la brochure de l'école. 
 
 
