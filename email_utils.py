@@ -63,7 +63,7 @@ def attach_files_to_email(msg, files):
             part = MIMEApplication(f.read(), Name=os.path.basename(file))
         part['Content-Disposition'] = f'attachment; filename="{os.path.basename(file)}"'
         msg.attach(part)
-        console.print(f"[blue]Attached {file}[/blue]")
+        console.print(f"✅ [blue]Attached {file}[/blue]")
 
 def attach_additional_files(msg):
     
