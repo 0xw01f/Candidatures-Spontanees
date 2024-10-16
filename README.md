@@ -1,3 +1,12 @@
+
+## Que fait ce script ?
+IL permet d'envoyer des candidatures spontanées à une liste de personnes. Ces candidatures sont personnalisées, et s'adressent directement à la personne qui reçoit l'email. 
+On récupère les infos (Prénom, No, Civilité, Mail, Entreprise, Poste) pour compléter un email d'accroche type.
+Ce script génère aussi des CV et des Lettres de Motivation pour chaque différent poste et différente personne que vous ciblez, et les attache à l'email de candidature.
+Il attache également des fichiers supplémentaires, comme le calendrier et la brochure de l'école. 
+
+
+
 ## Comment l'utiliser
 
 `Ne mettez pas tout de suite les informations des personnes que vous souhaitez contacter. Essayez avec votre adresse email avant chaque envoi/modification du script.`
@@ -36,6 +45,7 @@ JOB_NAME = "Python Developer" # Default job name
 - calendar.pdf
 - cv_template.pdf
 - lm_template.PDF
+
 
 ### Changer le contenu du fichier recipients.csv
 
