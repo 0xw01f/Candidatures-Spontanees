@@ -4,57 +4,75 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import os
 from config import SMTP_SERVER, PORT, SENDER_EMAIL, PASSWORD, ADDITIONAL_FILES
+from rich.console import Console
+from smtplib import SMTPAuthenticationError, SMTPException
+
+console = Console()
 
 def send_email_with_attachments(recipient_email, subject, body, attachments):
+    
     if not all([SENDER_EMAIL, recipient_email, subject, body, attachments]):
-        print(f"Incomplete email data detected for {subject}")
+        console.print(f"⚠️ [bold red]Incomplete email data detected for {subject}. Skipping...[/bold red]")
         return
 
+    msg = create_email_message(recipient_email, subject, body, attachments)
+    
+    try:
+        with smtplib.SMTP(SMTP_SERVER, PORT) as server:
+            server.starttls()
+            try:
+                # Attempt login
+                server.login(SENDER_EMAIL, PASSWORD)
+            except SMTPAuthenticationError as auth_error:
+                
+                console.print(f"🚫 [bold red]SMTP Authentication Error: Invalid credentials for {SENDER_EMAIL}. Please check your username and password.[/bold red]")
+                console.print(f"🚫 [bold yellow]Details: {auth_error}[/bold yellow]")
+                exit(1) # Exit the function early, do not attempt to send the email
+            except SMTPException as smtp_error:
+                
+                console.print(f"🚫 [bold red]SMTP Error occurred: {str(smtp_error)}[/bold red]")
+                exit(1)  
+
+            
+            server.send_message(msg)
+            console.print(f"✅ [green]Email sent successfully to {recipient_email}.[/green]")
+
+    except SMTPException as e:
+        console.print(f"🛑 [bold red]Failed to send email to {recipient_email}: {str(e)}[/bold red]")
+    except Exception as e:
+        console.print(f"🛑 [bold red]An unexpected error occurred while sending email: {str(e)}[/bold red]")
+
+def create_email_message(recipient_email, subject, body, attachments):
+    
     msg = MIMEMultipart()
     msg['From'] = SENDER_EMAIL
     msg['To'] = recipient_email
     msg['Subject'] = subject
 
     msg.attach(MIMEText(body, 'plain'))
+    
+    attach_files_to_email(msg, attachments)
+    attach_additional_files(msg)
 
-    for attachment in attachments:
-        with open(attachment, 'rb') as f:
-            part = MIMEApplication(f.read(), Name=os.path.basename(attachment))
-        part['Content-Disposition'] = f'attachment; filename="{os.path.basename(attachment)}"'
+    return msg
+
+def attach_files_to_email(msg, files):
+    
+    for file in files:
+        with open(file, 'rb') as f:
+            part = MIMEApplication(f.read(), Name=os.path.basename(file))
+        part['Content-Disposition'] = f'attachment; filename="{os.path.basename(file)}"'
         msg.attach(part)
+        console.print(f"✅ [blue]Attached {file}[/blue]")
 
+def attach_additional_files(msg):
+    
     for file in ADDITIONAL_FILES:
         if os.path.exists(file):
             with open(file, 'rb') as f:
                 part = MIMEApplication(f.read(), Name=os.path.basename(file))
             part['Content-Disposition'] = f'attachment; filename="{os.path.basename(file)}"'
             msg.attach(part)
+            console.print(f"✅ [blue]Attached additional file: {file}[/blue]")
         else:
-            print(f"File {file} does not exist and will not be attached.")
-
-    with smtplib.SMTP(SMTP_SERVER, PORT) as server:
-        server.starttls()
-        server.login(SENDER_EMAIL, PASSWORD)
-        server.send_message(msg)
-
-    print(f"Email sent successfully to {recipient_email}.")
-
-# main.py
-import os
-import csv
-from datetime import datetime
-from config import CSV_FILE, CV_TEMPLATE, LM_TEMPLATE
-from pdf_utils import add_text_to_pdf
-from email_utils import send_email_with_attachments
-
-def format_date(date_str):
-    dt = datetime.strptime(date_str, "%d/%m/%Y")
-    return dt.strftime("%d %B %Y")  # This will use the locale's month names
-
-def generate_documents(job_name, company, cover_letter_content):
-    main_folder = "generated"
-    os.makedirs(main_folder, exist_ok=True)
-
-    folder_name = os.path.join(main_folder, job_name.replace(" ", "_"))
-    os.makedirs(folder_name, exist_ok=True)
-    
+            console.print(f"⚠️ [bold yellow]File {file} does not exist and will not be attached.[/bold yellow]")
