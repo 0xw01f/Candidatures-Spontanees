@@ -76,3 +76,6 @@ python3 ./main.py
 
 ### Besoin d'aide ?
 Contactez moi.
+
+Info: J'ai aidé ChatGPT et Claude à faire le script (ils n'y seraient pas arrivés sans moi)
+Info2: Si des recruteurs voient que mes mails nétaient pas réels, et que je partage la techique, ne me détestez pas s'il vous plaît
