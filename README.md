@@ -43,6 +43,8 @@ ADDITIONAL_FILES = ['brochure.pdf', 'calendar.pdf'] # Additional files to attach
 JOB_NAME = "Python Developer" # Default job name
 ```
 
+Vous avez sûrement le 2FA d'activé sur votre compte Google. Alors au lieu du mot de passe il faut créer un "app password" ici : https://myaccount.google.com/apppasswords
+
 ### Changer les fichiers PDF d'exemple :
 - brochure.pdf
 - calendar.pdf
