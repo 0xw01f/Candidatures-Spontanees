@@ -87,6 +87,8 @@ banner = """
 / /__| (_| | | | | (_| | | (_| | (_| | |_| |_| | | |  __/\__ \_____|\ \ |_) | (_) | | | | || (_| | | | |  __/  __/\__ \\
 \____/\__,_|_| |_|\__,_|_|\__,_|\__,_|\__|\__,_|_|  \___||___/     \__/ .__/ \___/|_| |_|\__\__,_|_| |_|\___|\___||___/
                                                                       |_|                                              
+Initially developed by @0xw01f aka HORUS https://github.com/0xw01f
+New version by @bl4ckarch 
 """
 
 console.print(banner, style="cyan")
