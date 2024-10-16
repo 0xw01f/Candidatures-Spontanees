@@ -2,6 +2,8 @@
 
 ## Que fait ce script ?
 
+[example](img/example.png)
+
 Ce script permet d'envoyer des **candidatures spontanées** à une liste de personnes. Les candidatures sont personnalisées et s'adressent directement à la personne qui reçoit l'email.
 
 Le script récupère les informations (Prénom, Nom, Civilité, Email, Entreprise, Poste) pour compléter un email d'accroche type.
