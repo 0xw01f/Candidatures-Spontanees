@@ -1,0 +1,9 @@
+SMTP_SERVER = 'smtp.gmail.com' # Leave as is
+PORT = 587 # Leave as is
+SENDER_EMAIL = 'you@mail.tld' # Your gmail email
+PASSWORD = 'somepassortoken' # Your gmail password or app password if you have 2FA enabled
+CSV_FILE = "recipients.csv" # CSV file with recipients' information (Some fields are required !)
+CV_TEMPLATE = "cv_template.pdf" # Curriculum Vitae, 
+LM_TEMPLATE = "lm_template.pdf" # Motivation Letter
+ADDITIONAL_FILES = ['brochure.pdf', 'calendar.pdf'] # Additional files to attach to the email
+JOB_NAME = "Python Developer" # Default job name
