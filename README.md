@@ -11,7 +11,7 @@ cd Candidatures-Spontanees/
 ```
 
 
-Installer les packets nécessaires :
+Installer les paquets nécessaires :
 ```bash
 python3 -m pip install -r requirements.txt
 ```
