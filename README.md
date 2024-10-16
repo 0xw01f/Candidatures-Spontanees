@@ -80,6 +80,32 @@ Rappel de bonnes pratiques :
 - TOUJOURS tester le script sur un profil factice avce votre email pour s'assurer que tout est OK
 
 
+### La génération de lettre de motivation et de CV
+Ce script génère aussi des pdf uniques à chaque candidature. En prenant le nom du destinataire, son entreprise et d'autres informations, il complète une lettre de motivation ou un CV à trou et écrit ces informations sur votre template de CV et de lettre de motivation actuel.
+
+##### Où sont les textes à modifier ?
+Pour le moment il faut aller chercher dans le code source.
+
+À la fin du fichier `main.py` vous avez un "exemple" de lettre de motivation. 
+Utilisez les variables :
+`recipient['fullName']`
+`recipient['firstName']`
+`recipient['societe']`
+`recipient['job_title']` -> Le job de votre interlocuteur
+`job_name` -> Votre futur job
+
+Et écrivez votre propre lettre de motivation !
+
+Pour le CV, le script n'écrit que l'intitulé du poste que vous souhaitez sur votre CV en PDF (`cv_template.pdf`).
+
+Modifiez la position du texte que le script écrit :
+Ligne 23 pour le CV
+Ligne 41 pour la lettre de motivation  
+
+![Example](https://i.imgur.com/NtxNFHJ.png)
+
+
+
 ### Lancer le script
 
 ```bash
